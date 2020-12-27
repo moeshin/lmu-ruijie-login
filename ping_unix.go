@@ -5,7 +5,7 @@ package main
 import "os/exec"
 
 func ping(ip string) bool {
-	cmd := exec.Command("ping", "-c", "1", "-W", "2", ip)
+	cmd := exec.Command("ping", "-c", "1", "-W", "1", ip)
 	err := cmd.Run()
 	return err == nil
 }
