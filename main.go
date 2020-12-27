@@ -30,7 +30,7 @@ func main() {
 		case "ping":
 			shouldPing = true
 		case "-v", "--version":
-			fmt.Println(_VERSION_)
+			log(_VERSION_)
 			return
 		default:
 			fmt.Print(`Usage:
@@ -51,22 +51,22 @@ Options:
 	file := path.Join(dir, "config.ini")
 	stat, err := os.Stat(file)
 	if err != nil || stat.IsDir() {
-		fmt.Println("文件不存在")
+		log("文件不存在")
 		return
 	}
 	if err := ini.LoadFile(file); err != nil {
-		fmt.Println("解析配置文件时出错")
-		fmt.Println(err)
+		log("解析配置文件时出错")
+		log(err)
 		return
 	}
 	user := ini.GetString("", "user", "")
 	pass := ini.GetString("", "pass", "")
 	ip := ini.GetString("", "ip", "192.168.15.22")
 	if "" == user {
-		fmt.Println("配置缺少 user")
+		log("配置缺少 user")
 	}
 	if "" == pass {
-		fmt.Println("配置缺少 pass")
+		log("配置缺少 pass")
 	}
 
 	if shouldPing {
@@ -77,10 +77,16 @@ Options:
 	}
 
 	r, msg := login(user, pass, ip)
-	fmt.Println(getResultString(r))
+	log(getResultString(r))
 	if "" != msg {
-		fmt.Println(msg)
+		log(msg)
 	}
+}
+
+func log(a ...interface{}) {
+	fmt.Print(time.Now().Format("2006-01-02 15:04:05"))
+	fmt.Print(" ")
+	fmt.Println(a...)
 }
 
 func getResultString(r int) string {
