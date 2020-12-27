@@ -43,7 +43,7 @@ go build -ldflags "-s -w -X main._VERSION_=$version" -o "$exec_path"
 echo "输出文件夹: $build_dir"
 
 function cprs() {
-    cp "$workdir/$1" "$build_dir/$2"
+  cp "$workdir/$1" "$build_dir/$2"
 }
 
 cprs config-sample.ini
@@ -53,6 +53,7 @@ windows )
   cprs 'services/nssm-install.cmd'
   ;;
 darwin | linux )
-  cprs "services/$platform-install.sh" service-install.sh
+  cprs "services/$platform/service-install.sh"
+  cprs "services/$platform/service-uninstall.sh"
   ;;
 esac
