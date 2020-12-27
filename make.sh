@@ -49,11 +49,7 @@ function cprs() {
 cprs config-sample.ini
 
 case "$platform" in
-windows )
-  cprs 'services/nssm-install.cmd'
-  ;;
-darwin | linux )
-  cprs "services/$platform/service-install.sh"
-  cprs "services/$platform/service-uninstall.sh"
+windows | darwin | linux )
+  cp "$workdir/services/$platform/"* "$build_dir"
   ;;
 esac
