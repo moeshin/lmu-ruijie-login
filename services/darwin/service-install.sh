@@ -23,6 +23,8 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     <true/>
     <key>WorkingDirectory</key>
     <string>$workdir</string>
+    <key>StandardOutPath</key>
+    <string>$workdir/log.txt</string>
     <key>StandardErrorPath</key>
     <string>$workdir/log.txt</string>
 </dict>

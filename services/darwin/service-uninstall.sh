@@ -7,7 +7,7 @@ echo "停止服务 $package"
 launchctl start "$package" || exit 1
 
 echo "卸载服务 $plist"
-launchctl load "$plist" || exit 1
+launchctl unload "$plist" || exit 1
 
 echo "删除服务配置 $plist"
 rm "$plist" || exit 1
