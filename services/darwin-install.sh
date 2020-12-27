@@ -26,7 +26,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     <key>StandardErrorPath</key>
     <string>$workdir/log.txt</string>
 </dict>
-</plist>" > "$plist"
+</plist>" > "$plist" || exit 1
 
 echo "加载服务配置 $plist"
 launchctl load "$plist" || exit 1
