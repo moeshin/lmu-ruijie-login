@@ -3,7 +3,7 @@
 chcp 65001 >nul
 set dir=%~dp0
 
-where nssma >nul 2>&1
+where nssm >nul 2>&1
 if "%errorLevel%" neq "0" (
     echo 需要 NSSM https://nssm.cc/download
     goto :EOF
@@ -15,5 +15,5 @@ if "%errorLevel%" neq "0" (
     goto :EOF
 )
 
-set name=lum-ruijie
+set name=lmu-ruijie
 nssm remove "%name%" confirm
