@@ -14,7 +14,7 @@ if [[ -z "$GOOS" ]]; then
     platform='darwin'
     ;;
   Linux* )
-    if [ "$(getprop net.bt.name)" ==  'Android' ]; then
+    if getprop >/dev/null 2>&1 && [ "$(getprop net.bt.name)" ==  'Android' ]; then
       platform='android'
     else
       platform='linux'
