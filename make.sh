@@ -4,7 +4,11 @@ version='1.0.0'
 
 workdir="$(cd "$(dirname "$0")" && pwd)"
 
+base_dir="$workdir/build"
+
 if [[ -z "$GOOS" ]]; then
+  is_local=true
+  build_dir="$base_dir/local"
   uname="$(uname)"
   case "$uname" in
   CYGWIN* | MINGW* | MSYS* )
@@ -20,15 +24,11 @@ if [[ -z "$GOOS" ]]; then
       platform='linux'
     fi
     ;;
-  * )
-    echo "Unkown uname: $uname"
-    exit 1
   esac
 else
+  build_dir="$base_dir/$GOOS"
   platform="$GOOS"
 fi
-
-build_dir="$workdir/build/$platform"
 
 mkdir -p "$build_dir"
 
@@ -42,11 +42,10 @@ go build -ldflags "-s -w -X main._VERSION_=$version" -o "$exec_path"
 
 echo "输出文件夹: $build_dir"
 
-function cprs() {
-  cp "$workdir/$1" "$build_dir/$2"
-}
-
-cprs config-sample.ini
+config="$build_dir/config.ini"
+if [ -z $is_local ] || [ ! -e "$config" ]; then
+  cp "$workdir/config-sample.ini" "$config"
+fi
 
 case "$platform" in
 windows | darwin | linux )
