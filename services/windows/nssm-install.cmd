@@ -26,3 +26,5 @@ nssm "set" "%name%" AppStderr "%dir%log.txt"
 
 nssm "set" "%name%" AppExit Default Exit
 nssm "set" "%name%" AppThrottle 0
+
+nssm "set" "%name%" DependOnService nsi
