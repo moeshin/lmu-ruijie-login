@@ -72,7 +72,7 @@ Options:
 	if shouldPing {
 		for !ping(ip) {
 			//time.Sleep(1 * time.Second)
-			fmt.Printf("ping %s\n", ip)
+			log("ping: " + ip)
 		}
 	}
 
