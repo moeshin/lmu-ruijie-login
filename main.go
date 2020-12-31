@@ -62,6 +62,7 @@ Options:
 	user := ini.GetString("", "user", "")
 	pass := ini.GetString("", "pass", "")
 	ip := ini.GetString("", "ip", "192.168.15.22")
+	timeout := ini.GetInt64("", "ping-timeout", 5000)
 	if "" == user {
 		log("配置缺少 user")
 	}
@@ -70,9 +71,17 @@ Options:
 	}
 
 	if shouldPing {
+		start := getTime()
 		for !ping(ip) {
 			//time.Sleep(1 * time.Second)
 			log("ping: " + ip)
+			if timeout > 0 {
+				end := getTime()
+				if end-start > timeout {
+					break
+				}
+				start = end
+			}
 		}
 	}
 
@@ -81,6 +90,10 @@ Options:
 	if "" != msg {
 		log(msg)
 	}
+}
+
+func getTime() int64 {
+	return time.Now().UnixNano() / 1e6
 }
 
 func log(a ...interface{}) {
