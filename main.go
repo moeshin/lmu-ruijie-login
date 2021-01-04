@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -46,7 +47,7 @@ Options:
 		}
 	}
 
-	dir, _ := os.Getwd()
+	dir := getExecDir()
 	ini := goini.NewGoINI()
 	file := path.Join(dir, "config.ini")
 	stat, err := os.Stat(file)
@@ -90,6 +91,19 @@ Options:
 	if "" != msg {
 		log(msg)
 	}
+}
+
+func getExecDir() string {
+	exec, _ := os.Executable()
+	info, _ := os.Lstat(exec)
+	mode := info.Mode()
+	if mode == mode|os.ModeSymlink {
+		link, err := os.Readlink(exec)
+		if err == nil {
+			exec = link
+		}
+	}
+	return filepath.Dir(exec)
 }
 
 func getTime() int64 {
