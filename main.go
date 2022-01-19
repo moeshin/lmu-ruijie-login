@@ -52,11 +52,11 @@ Options:
 	file := path.Join(dir, "config.ini")
 	stat, err := os.Stat(file)
 	if err != nil || stat.IsDir() {
-		log("文件不存在")
+		log("配置文件不存在", file)
 		return
 	}
 	if err := ini.LoadFile(file); err != nil {
-		log("解析配置文件时出错")
+		log("解析配置文件时出错", file)
 		log(err)
 		return
 	}
