@@ -91,6 +91,10 @@ Options:
 	if "" != msg {
 		log(msg)
 	}
+	if r == 1 || r == 3 {
+		return
+	}
+	os.Exit(1)
 }
 
 func getExecDir() string {
