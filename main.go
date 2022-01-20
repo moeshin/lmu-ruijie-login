@@ -20,7 +20,7 @@ type Result struct {
 	Message string `json:"message"`
 }
 
-var _VERSION_ = "unknown"
+const _VERSION_ = "1.0.0-alpha"
 
 func main() {
 	shouldPing := false
@@ -31,7 +31,7 @@ func main() {
 		case "ping":
 			shouldPing = true
 		case "-v", "--version":
-			log(_VERSION_)
+			fmt.Print("Version: " + _VERSION_)
 			return
 		default:
 			fmt.Print(`使用说明：
