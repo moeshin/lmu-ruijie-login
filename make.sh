@@ -11,7 +11,7 @@ if [[ -z "$GOOS" ]]; then
   build_dir="$base_dir/local"
   uname="$(uname)"
   case "$uname" in
-  CYGWIN* | MINGW* | MSYS* )
+  CYGWIN* | MINGW* | MSYS* | Windows* )
     platform='windows'
     ;;
   Darwin* )
