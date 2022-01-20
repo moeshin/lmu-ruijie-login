@@ -34,7 +34,7 @@ func main() {
 			log(_VERSION_)
 			return
 		default:
-			fmt.Print(`Usage:
+			fmt.Print(`使用说明：
   login				登录校园网
   login ping 		在登录前进行 ping
   login <options>
