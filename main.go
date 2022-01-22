@@ -23,20 +23,31 @@ type Result struct {
 const _VERSION_ = "1.0.0-alpha"
 
 func main() {
-	shouldPing := false
+	isService := false
+	dir := getExecDir()
 
 	if len(os.Args) > 1 {
 		arg1 := os.Args[1]
 		switch arg1 {
-		case "ping":
-			shouldPing = true
+		case "service":
+			f, err := os.OpenFile(
+				path.Join(dir, "log.txt"),
+				os.O_WRONLY|os.O_APPEND|os.O_CREATE,
+				os.ModePerm|os.ModeAppend)
+			if err != nil {
+				panic(err)
+			}
+			os.Stdout = f
+			os.Stderr = f
+			isService = true
+			log("程序已启动")
 		case "-v", "--version":
 			fmt.Print("Version: " + _VERSION_)
 			return
 		default:
 			fmt.Print(`使用说明：
   login				登录校园网
-  login ping 		在登录前进行 ping
+  login service     日志保存在 log.txt 里
   login <options>
 
 Options:
@@ -47,7 +58,6 @@ Options:
 		}
 	}
 
-	dir := getExecDir()
 	ini := goini.NewGoINI()
 	file := path.Join(dir, "config.ini")
 	stat, err := os.Stat(file)
@@ -71,7 +81,7 @@ Options:
 		log("配置缺少 pass")
 	}
 
-	if shouldPing {
+	if isService {
 		start := getTime()
 		for !ping(ip) {
 			//time.Sleep(1 * time.Second)
@@ -136,7 +146,7 @@ func getResultString(r int) string {
 	return ""
 }
 
-//goland:noinspection GoUnhandledErrorResult
+//goland:noinspection GoUnhandledErrorResult,HttpUrlsUsage
 func login(user, pass, ip string) (r int, msg string) {
 	client := &http.Client{
 		Timeout: 5 * time.Second,
