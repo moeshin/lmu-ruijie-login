@@ -5,7 +5,7 @@ set dir=%~dp0
 
 where nssm >nul 2>&1
 if "%errorLevel%" neq "0" (
-    echo 需要 NSSM https://nssm.cc/download
+    echo 需要 NSSM https://github.com/moeshin/nssm
     goto :EOF
 )
 
@@ -16,4 +16,5 @@ if "%errorLevel%" neq "0" (
 )
 
 set name=lmu-ruijie
+nssm stop "%name%"
 nssm remove "%name%" confirm

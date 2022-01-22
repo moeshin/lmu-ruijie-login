@@ -17,9 +17,7 @@
 
 ## 开机启动
 
-不同操作系统有不同的实现方法，已写好相关脚本，详见 [services](services) 文件夹。
-
-Windows 依赖 [NSSM](https://www.nssm.cc/download) 实现，但已经很久没有维护，如果 Bios 中有开启 `Fast Boot`，会无法自启。
+不同操作系统有不同的实现方法，已写好相关脚本，详见 [scripts](scripts) 文件夹。
 
 ## 为何要 PING？
 

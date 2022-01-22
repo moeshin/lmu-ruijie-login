@@ -5,7 +5,7 @@ set dir=%~dp0
 
 where nssm >nul 2>&1
 if "%errorLevel%" neq "0" (
-    echo 需要 NSSM https://nssm.cc/download
+    echo 需要 NSSM https://github.com/moeshin/nssm
     goto :EOF
 )
 
@@ -24,7 +24,9 @@ nssm "set" "%name%" Description "黎明大学-锐捷自动登录"
 nssm "set" "%name%" AppStdout "%dir%log.txt"
 nssm "set" "%name%" AppStderr "%dir%log.txt"
 
-nssm "set" "%name%" AppExit Default Exit
+nssm "set" "%name%" AppExit Default Ignore
 nssm "set" "%name%" AppThrottle 0
 
 nssm "set" "%name%" DependOnService nsi
+
+nssm start "%name%"
