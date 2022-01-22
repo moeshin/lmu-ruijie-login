@@ -19,7 +19,9 @@
 
 不同操作系统有不同的实现方法，已写好相关脚本，详见 [services](services) 文件夹。
 
-Windows 依赖 [NSSM](https://www.nssm.cc/download) 实现，但已经很久没有维护，如果 Bios 中有开启 `Fast Boot`，会无法自启。
+### Windows
+
+服务依赖 [NSSM](https://www.nssm.cc/download) 实现，如果 **Bios** 中有开启 `Fast Boot` 或 `Fast Startup`，关机后再开机会无法自启。
 
 ## 为何要 PING？
 
