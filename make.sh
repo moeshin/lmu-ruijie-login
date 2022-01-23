@@ -32,7 +32,7 @@ fi
 
 mkdir -p "$build_dir"
 
-exec_path="$build_dir/login"
+exec_path="$build_dir/lmu-ruijie-login"
 
 if [[ "$platform" == "windows" ]]; then
   exec_path="$exec_path.exe"

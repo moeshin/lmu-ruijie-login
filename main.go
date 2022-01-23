@@ -35,9 +35,9 @@ func main() {
 			return
 		default:
 			fmt.Print(`使用说明：
-  login				登录校园网
-  login ping 		在登录前进行 ping
-  login <options>
+  lmu-ruijie-login				登录校园网
+  lmu-ruijie-login ping 		在登录前进行 ping
+  lmu-ruijie-login <options>
 
 Options:
   -v, --version		打印版本

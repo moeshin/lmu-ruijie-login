@@ -15,8 +15,8 @@ if "%errorLevel%" neq "0" (
     goto :EOF
 )
 
-set name=lmu-ruijie
-nssm install "%name%" "%dir%login.exe" ping
+set name=lmu-ruijie-login
+nssm install "%name%" "%dir%lmu-ruijie-login.exe" ping
 
 nssm "set" "%name%" DisplayName "LMU RuiJie"
 nssm "set" "%name%" Description "黎明大学-锐捷自动登录"

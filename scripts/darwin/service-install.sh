@@ -16,7 +16,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     <string>$package</string>
     <key>ProgramArguments</key>
     <array>
-        <string>$workdir/login</string>
+        <string>$workdir/lmu-ruijie-login</string>
         <string>ping</string>
     </array>
     <key>RunAtLoad</key>

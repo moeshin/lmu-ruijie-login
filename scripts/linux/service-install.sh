@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-service='lmu-ruijie.service'
+service='lmu-ruijie-login.service'
 workdir="$(cd "$(dirname "$0")" && pwd)"
 file="/usr/local/lib/systemd/system/$service"
 
@@ -13,7 +13,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=\"$workdir/login\" ping
+ExecStart=\"$workdir/lmu-ruijie-login\" ping
 
 [Install]
 WantedBy=multi-user.target" > "$file" || exit 1

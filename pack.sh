@@ -10,7 +10,7 @@ function pack() {
 
   echo "======== pack $1"
   source="$build_dir/$1"
-  dest="$build_dir/lmu-ruijie-for-$1.7z"
+  dest="$build_dir/lmu-ruijie-login-for-$1.7z"
   [ -f "$dest" ] && rm "$dest"
   7z a "$dest" "$source"
   7z rn "$dest" "$1" "lmu-ruijie"

@@ -15,6 +15,6 @@ if "%errorLevel%" neq "0" (
     goto :EOF
 )
 
-set name=lmu-ruijie
+set name=lmu-ruijie-login
 nssm stop "%name%"
 nssm remove "%name%" confirm

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-service='lmu-ruijie.service'
+service='lmu-ruijie-login.service'
 
 echo "停止服务 $service"
 systemctl start "$service" || exit 1
