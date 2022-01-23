@@ -72,8 +72,18 @@ Options:
 	}
 
 	if shouldPing {
+		client := &http.Client{
+			Timeout:       1 * time.Second,
+			CheckRedirect: DisableCheckRedirect,
+		}
+		//goland:noinspection HttpUrlsUsage
+		uri := "http://" + ip
+		isConnected := func() bool {
+			_, err := client.Head(uri)
+			return err == nil
+		}
 		start := getTime()
-		for !ping(ip) {
+		for !isConnected() {
 			//time.Sleep(1 * time.Second)
 			log("ping: " + ip)
 			if timeout > 0 {
@@ -136,13 +146,15 @@ func getResultString(r int) string {
 	return ""
 }
 
-//goland:noinspection GoUnhandledErrorResult
+func DisableCheckRedirect(_ *http.Request, _ []*http.Request) error {
+	return http.ErrUseLastResponse
+}
+
+//goland:noinspection GoUnhandledErrorResult,HttpUrlsUsage
 func login(user, pass, ip string) (r int, msg string) {
 	client := &http.Client{
-		Timeout: 5 * time.Second,
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			return http.ErrUseLastResponse
-		},
+		Timeout:       5 * time.Second,
+		CheckRedirect: DisableCheckRedirect,
 	}
 
 	resp, err := client.Head("http://" + ip + "/eportal/redirectortosuccess.jsp")
