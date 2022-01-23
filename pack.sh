@@ -1,21 +1,37 @@
 #!/usr/bin/env bash
 
 workdir="$(cd "$(dirname "$0")" && pwd)"
-make="$workdir/make.sh"
+make_script="$workdir/make.sh"
 build_dir="$workdir/build"
+export CGO_ENABLED=0
 
-function pack() {
-  echo "======== make $1"
-  CGO_ENABLED=0 GOOS="$1" GOARCH=amd64 "$make"
-
-  echo "======== pack $1"
-  source="$build_dir/$1"
-  dest="$build_dir/lmu-ruijie-login-for-$1.7z"
+function make() {
+  suffix=$GOOS-$GOARCH
+  echo "======== Make $suffix"
+  "$make_script"
+  echo "======== Pack $suffix"
+  name="lmu-ruijie-login-$suffix"
+  source="$build_dir/$name"
+  dest="$source.tar.gz"
   [ -f "$dest" ] && rm "$dest"
-  7z a "$dest" "$source"
-  7z rn "$dest" "$1" "lmu-ruijie"
+  tar -zcvf "$source.tar.gz" -C "$build_dir" "$name"
 }
 
-pack windows
-pack darwin
-pack linux
+function pack() {
+  export GOOS=$1
+  shift
+  if [ $# -eq 0 ]; then
+    echo "======== Default GOARCH=amd64"
+    export GOARCH=amd64
+    make
+  else
+    for GOARCH in "$@"; do
+      export GOARCH
+      make
+    done
+  fi
+}
+
+pack windows 386 amd64 arm arm64
+pack linux 386 amd64 arm arm64
+pack darwin amd64 arm64

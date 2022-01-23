@@ -6,7 +6,7 @@ workdir="$(cd "$(dirname "$0")" && pwd)"
 
 base_dir="$workdir/build"
 
-if [[ -z "$GOOS" ]]; then
+if [ -z "$GOOS" ]; then
   is_local=true
   build_dir="$base_dir/local"
   uname="$(uname)"
@@ -26,7 +26,10 @@ if [[ -z "$GOOS" ]]; then
     ;;
   esac
 else
-  build_dir="$base_dir/$GOOS"
+  if [ -z "$GOARCH" ]; then
+    export GOARCH=amd64
+  fi
+  build_dir="$base_dir/lmu-ruijie-login-$GOOS-$GOARCH"
   platform="$GOOS"
 fi
 
@@ -40,7 +43,7 @@ fi
 
 go build -ldflags "-s -w -X main._VERSION_=$version" -o "$exec_path"
 
-echo "输出文件夹: $build_dir"
+echo "Out: $build_dir"
 
 config="$build_dir/config.ini"
 if [ -z $is_local ] || [ ! -e "$config" ]; then

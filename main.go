@@ -20,7 +20,7 @@ type Result struct {
 	Message string `json:"message"`
 }
 
-const _VERSION_ = "1.0.0-alpha"
+var _VERSION_ = "dev"
 
 func main() {
 	shouldPing := false
