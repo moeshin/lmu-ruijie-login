@@ -49,6 +49,6 @@ fi
 
 case "$platform" in
 windows | darwin | linux )
-  cp "$workdir/services/$platform/"* "$build_dir"
+  cp "$workdir/scripts/$platform/"* "$build_dir"
   ;;
 esac
