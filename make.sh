@@ -42,7 +42,7 @@ if [[ "$platform" == "windows" ]]; then
 fi
 
 echo "Version: $version"
-go build -ldflags "-s -w -X main._VERSION_=$version" -o "$exec_path"
+go build -ldflags "-s -w -X main._VERSION_=$version" -o "$exec_path" || exit 1
 
 echo "Out: $build_dir"
 

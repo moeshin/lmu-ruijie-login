@@ -8,13 +8,13 @@ export CGO_ENABLED=0
 function make() {
   suffix=$GOOS-$GOARCH
   echo "======== Make $suffix"
-  "$make_script"
+  "$make_script" || exit 1
   echo "======== Pack $suffix"
   name="lmu-ruijie-login-$suffix"
   source="$build_dir/$name"
   dest="$source.tar.gz"
   [ -f "$dest" ] && rm "$dest"
-  tar -zcvf "$source.tar.gz" -C "$build_dir" "$name"
+  tar -zcvf "$source.tar.gz" -C "$build_dir" "$name" || exit 1
 }
 
 function pack() {
@@ -23,15 +23,15 @@ function pack() {
   if [ $# -eq 0 ]; then
     echo "======== Default GOARCH=amd64"
     export GOARCH=amd64
-    make
+    make || exit 1
   else
     for GOARCH in "$@"; do
       export GOARCH
-      make
+      make || exit 1
     done
   fi
 }
 
-pack windows 386 amd64 arm arm64
-pack linux 386 amd64 arm arm64
-pack darwin amd64 arm64
+pack windows 386 amd64 arm arm64 || exit 1
+pack linux 386 amd64 arm arm64 || exit 1
+pack darwin amd64 arm64 || exit 1
