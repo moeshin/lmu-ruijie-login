@@ -41,6 +41,7 @@ if [[ "$platform" == "windows" ]]; then
   exec_path="$exec_path.exe"
 fi
 
+echo "Version: $version"
 go build -ldflags "-s -w -X main._VERSION_=$version" -o "$exec_path"
 
 echo "Out: $build_dir"
