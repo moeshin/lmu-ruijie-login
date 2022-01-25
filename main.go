@@ -108,14 +108,13 @@ Options:
 }
 
 func getExecDir() string {
-	exec, _ := os.Executable()
-	info, _ := os.Lstat(exec)
-	mode := info.Mode()
-	if mode == mode|os.ModeSymlink {
-		link, err := os.Readlink(exec)
-		if err == nil {
-			exec = link
-		}
+	exec, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exec, err = filepath.EvalSymlinks(exec)
+	if err != nil {
+		panic(err)
 	}
 	return filepath.Dir(exec)
 }
