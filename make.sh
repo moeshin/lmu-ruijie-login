@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version='1.0.0'
+version="$(git describe --tags)"
 
 workdir="$(cd "$(dirname "$0")" && pwd)"
 
